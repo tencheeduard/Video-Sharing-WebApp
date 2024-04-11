@@ -3,8 +3,14 @@ package com.eax.videoapp.entities;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
+import jakarta.persistence.Temporal;
+import jakarta.persistence.TemporalType;
 import lombok.AllArgsConstructor;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
+
+import java.sql.Date;
 
 @Entity
 @NoArgsConstructor
@@ -12,14 +18,32 @@ import lombok.NoArgsConstructor;
 public class Video {
 
     @Id
-    public String videoId;
+    @Getter @Setter
+    String videoId;
 
-    public String user;
+    @Getter @Setter
+    String user;
 
-    public String title;
+    @Getter @Setter
+    String title;
 
-    public String description;
+    @Getter @Setter
+    String description;
 
-    public String tags;
+    @Getter @Setter
+    String tags;
+
+    @Getter @Setter
+    @Temporal(TemporalType.DATE)
+    Date date;
+
+    @Getter @Setter
+    String category;
+
+    @Getter @Setter
+    int views;
+
+    @Getter @Setter
+    int likes;
 
 }

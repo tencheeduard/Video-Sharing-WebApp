@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+        <p th:text="'Logged in as: ' + ${username}"></p>
+
+        <label for="sort_select">Sort By</label>
+
+        <select id="sort_select" name="sort">
+            <option value="RECENT">Most Recent</option>
+            <option value="RECOMMENDED">Most Relevant</option>
+            <option value="POPULAR">Most Popular</option>
+        </select>
+
+        <a id="upload_link" href="/upload">Upload Video...</a>
+
+        <script th:inline="javascript">
+            let videos = /*[[${titles}]]*/ 'videos';
+            let ids = /*[[${ids}]]*/ 'ids';
+
+            for(let i = 0; i < videos.length; i++)
+            {
+                const newP = document.createElement('a');
+                newP.href = "/watch/" + ids[i];
+                newP.appendChild(document.createTextNode(videos[i]));
+                document.body.insertBefore(newP,document.getElementById("upload_link"));
+                document.body.insertBefore(document.createElement('br'), newP);
+            }
+
+            document.body.insertBefore(document.createElement('br'), document.getElementById("upload_link"));
+            document.body.insertBefore(document.createElement('br'), document.getElementById("upload_link"));
+            document.body.insertBefore(document.createElement('br'), document.getElementById("upload_link"));
+
+            const sort_select = document.getElementById("sort_select");
+
+            sort_select.onchange = function(){
+                const request = new XMLHttpRequest();
+                request.open("POST","/setFilterType/" + sort_select.options[sort_select.selectedIndex].value);
+                request.send();
+                request.onreadystatechange = function()
+                {
+                    if (request.readyState === XMLHttpRequest.DONE && request.status === 200) {
+                        location.reload();
+                    }
+                }
+            }
+        </script>
+</body>
+</html>

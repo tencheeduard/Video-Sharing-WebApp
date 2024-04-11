@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+    <form method="POST" action="/upload/file" enctype="multipart/form-data">
+
+        <input type="file" name="file"/> <br>
+        <input type="text" name="title"/> <br>
+        <input type="text" name="description"/> <br>
+        <input type="text" name="tags"/> <br>
+        <input type="file" name="thumbnail"/> <br>
+
+        <p id="error_message" th:text="${error}">NULL</p>
+        <input type="submit" value="Submit" /> <br>
+
+    </form>
+
+    <script>
+        let error = document.getElementById("error_message");
+        if(error.innerHTML === "NULL"){
+            error.remove();
+        }
+    </script>
+</body>
+</html>

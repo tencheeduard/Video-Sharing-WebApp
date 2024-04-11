@@ -8,22 +8,39 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.sql.Date;
+
 @Entity
 @AllArgsConstructor
 @NoArgsConstructor
 public class User {
 
     @Id
-    public String username;
+    @Getter @Setter
+    String username;
 
     @Getter @Setter
-    public String publicName;
-    @Getter @Setter
-    public String password;
-    @Getter @Setter
-    public String email;
+    String publicName;
 
     @Getter @Setter
-    public String accessLevel;
+    String password;
 
+    @Getter @Setter
+    String email;
+
+    @Getter @Setter
+    String accessLevel;
+
+    @Getter @Setter
+    Date joinDate;
+
+    @Getter @Setter
+    int subscribers;
+
+    public User(String username, String password, String email, Date joinDate) {
+        this.username = username;
+        this.password = password;
+        this.email = email;
+        this.joinDate = joinDate;
+    }
 }

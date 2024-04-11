@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+    <video width="1280" height="720" controls>
+        <source th:src="${video}" type=video/mp4>
+    </video>
+    <h1 th:text="${title}"></h1>
+    <p th:text="${views} + ' views'"></p>
+    <p id="likes" th:text="${likes} + ' likes'"></p>
+    <p th:text="'Uploaded by:' + ${uploader}"></p>
+    <br>
+    <p th:text="${description}"></p>
+
+    <button id="like_button" type="button">Like</button>
+
+    <script th:inline="javascript">
+
+        document.getElementById("like_button").onclick = function()
+        {
+            const id = /*[[${videoId}]]*/ 'videoId';
+            const request = new XMLHttpRequest();
+            let likes = /*[[${likes}]]*/ 'likes'
+            request.open("POST","/like/" + id);
+            request.send();
+            request.onreadystatechange = function()
+            {
+                if (request.readyState === XMLHttpRequest.DONE) {
+                    if(request.status===200)
+                    {
+                        const likesCounter = document.getElementById("likes");
+                        likes = likes + 1;
+                        likesCounter.innerHTML = likes + ' likes';
+                    }
+                    else if(request.status === 401)
+                    {
+                        if(document.getElementById("error_not_logged_in_text") == null) {
+                            const errorText = document.createElement('a');
+                            errorText.id = "error_not_logged_in_text";
+                            errorText.appendChild(document.createTextNode("You must log in to perform this action. "));
+                            document.body.insertBefore(errorText, document.getElementById("like_button"));
+
+                            const logInLink = document.createElement('a');
+                            logInLink.href = "/login?";
+                            logInLink.appendChild(document.createTextNode("Click here to log in."));
+                            document.body.insertBefore(logInLink, document.getElementById("like_button"));
+
+                            document.body.insertBefore(document.createElement('br'), document.getElementById("like_button"));
+                        }
+                    }
+                }
+            }
+        }
+
+
+    </script>
+</body>
+</html>
