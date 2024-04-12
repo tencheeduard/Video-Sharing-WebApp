@@ -1,55 +1,77 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html lang="en">
 <head>
 	<title>Videos</title>
-    <link rel="stylesheet" type="text/css" href="/static/videostyle.css">
+    <link rel="stylesheet" type="text/css" href="/static/video/videostyle.css">
 </head>
 <body>
-	<div class="main"> 
-        <br>
-        <form class="searchbar" role="search" style="width: 300px; height: 150px" > 
-            <input type="text" class="formstyle" placeholder="Search..." name="search" maxlength="100" size="20">
-        </form>
-        <br>
 
-
-        <div class="mainVid" style="float: left; width: 65%">
-            <figure id="videoContainer" data-fullscreen="false">
-                <video width="960" height="540" controls="controls">
-                    <source th:src="${video}" type=video/mp4 />
-                </video>
-            </figure>
-
-            <h1 th:text="${title}"></h1>
-
-            <a th:text="'Uploaded by:' + ${uploader}"></a> <br>
-            <a th:text="${views} + ' views'"></a> <br>
-            <p id="likes" th:text="${likes} + ' likes'"></p>
-            <button id="like_button" type="button">Like</button>
-
-
-            <br> <p th:text="${description}"></p> <br>
-
-
-        </div>
-
-
-        <template>
-            <div class="recommendations" style="float: right; width: 33%">
-                <div class="rec">
-                    <div class="left">
-                        <figure class="recommendedVideoContainer" data-fullscreen="false">
-                            <video width="150px" height="90px" controls="controls">
-                                <source src="How Would You Like It_.mp4" type="video/mp4" />
+	<div class="main">
+        <table id="main_table">
+            <tr>
+                <td id="main_video_element">
+                    <div class="mainVid">
+                        <div id="videoContainer">
+                            <video id = "main_video" width="960" height="540" controls="controls">
+                                <source id="video_source" src="/video/placeholder" type=video/mp4 />
                             </video>
-                        </figure>
+
+                            <div class="video_details">
+                                <h1 id="title">Title</h1>
+                                <table id="video_details_table">
+                                    <tr>
+                                        <td>
+                                            <p id="uploader"></p>
+                                        </td>
+                                        <td>
+                                            <table id="likes_table">
+                                                <tr>
+                                                    <td>
+                                                        <p id="likes_counter"></p>
+                                                    </td>
+                                                    <td>
+                                                        <button id="like_button" type="button">Like</button>
+                                                    </td>
+                                                </tr>
+                                            </table>
+
+                                        </td>
+                                        <td>
+                                            <p id="view_counter">No Views</p>
+                                        </td>
+                                    </tr>
+                                </table>
+                                <p id="description"></p>
+                            </div>
+                        </div>
                     </div>
-                    <div class="right"><p>Cute title here</p>Cute</div>
-                </div>
-            </div>
+                </td>
+                <td id="recommendations_element">
+                </td>
+            </tr>
+        </table>
+
+        <template id="recommended_video_template">
+            <table class="recommended_video_container">
+                <tr>
+                    <td>
+                        <div>
+                            <figure data-fullscreen="false">
+                                <a class="recommended_video_thumbnail_link" href="/video/placeholder">
+                                    <img class="recommended_video_thumbnail" src="/video/placeholder" alt="/video/placeholder" width="384" height="216"/>
+                                </a>
+                            </figure>
+                        </div>
+                    </td>
+                    <td class="recommended_video_text_td">
+                        <p class="recommended_video_title">Title</p>
+                        <p class="recommended_video_author">Author</p>
+                    </td>
+                </tr>
+            </table>
         </template>
     </div>
 
-    <script th:inline="javascript" src="/static/videoscript.js"></script>
+    <script src="/static/video/videoscript.js"></script>
 </body>
 </html>

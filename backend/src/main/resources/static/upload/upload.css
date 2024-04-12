@@ -1,0 +1,150 @@
+*{
+    font-family: Courier, monospace;
+    font-weight: bold;
+}
+
+body
+{
+    width:100%;
+    height:100%;
+    background-image: url("https://worldofprintables.com/wp-content/uploads/2023/07/Pink-and-White-Cat-Background.jpg");
+    background-size: 261px;
+    animation: moveIt 100s linear infinite;
+}
+
+@keyframes moveIt {
+    from {background-position: bottom left;}
+    to {background-position: top right;}
+}
+
+.form_div
+{
+    background-color: rgba(253, 222, 227, 0.842);
+    margin:auto;
+    margin-top: 250px;
+    border-radius: 10px;
+    width:max-content;
+    scale: 200% 200%;
+}
+
+#upload_form
+{
+    margin: 30px 30px 30px 30px;
+    background-color:pink;
+    border-radius:20px;
+}
+
+.form_label
+{
+    text-align: center;
+}
+
+#submit_button
+{
+    margin:auto;
+    display:block;
+    width:70%;
+    height:30px;
+
+    border-radius: 10px;
+    background-color: hotpink;
+    transition: 1s;
+    color:white;
+    font-size: small;
+}
+
+#main_table
+{
+    margin-left: 30px;
+    margin-right: 30px;
+    margin-top: 20px;
+    margin-bottom: 20px;
+}
+
+#category
+{
+    border-radius: 10px;
+    background-color: hotpink;
+    transition: 1s;
+    color:white;
+    font-size: small;
+}
+
+#title
+{
+    width:300px;
+}
+
+#description
+{
+    width:300px;
+    height:50px;
+    text-align: start;
+    resize: vertical;
+}
+
+#tags
+{
+    width:300px;
+    text-align: start;
+    resize: vertical;
+}
+
+h1
+{
+    color:white;
+    animation: funky-text;
+    animation-iteration-count: infinite;
+    animation-duration: 5s;
+    text-shadow: -1px -1px 0 pink, 1px -1px 0 hotpink, -1px 1px 0 white, 1px 1px 0 white;
+
+}
+
+label
+{
+    font-family: Courier, monospace;
+    color:hotpink;
+    animation: funky-text;
+    animation-iteration-count: infinite;
+    animation-duration: 20s;
+    text-shadow: -1px -1px 0 pink, 1px -1px 0 hotpink, -1px 1px 0 white, 1px 1px 0 white;
+}
+
+input[type=file]::file-selector-button {
+    font-family: Courier, monospace;
+    font-weight: bold;
+    border-radius: 10px;
+    background-color: hotpink;
+    transition: 1s;
+    color:white;
+    font-size: small;
+}
+
+input[type=file]::file-selector-button:hover {
+    font-family: Courier, monospace;
+    font-weight: bold;
+    background-color: white;
+}
+
+@keyframes funky-text {
+    0% {
+        text-shadow: -1px -1px 0 pink, 1px -1px 0 hotpink, -1px 1px 0 white, 1px 1px 0 white;
+    }
+
+    25% {
+        text-shadow: -1px -1px 0 white, 1px -1px 0 hotpink, -1px 1px 0 pink, 1px 1px 0 white;
+    }
+
+    50% {
+        text-shadow: -1px -1px 0 white, 1px -1px 0 white, -1px 1px 0 hotpink, 1px 1px 0 pink;
+    }
+
+    75% {
+        text-shadow: -1px -1px 0 hotpink, 1px -1px 0 white, -1px 1px 0 white, 1px 1px 0 pink;
+    }
+
+    100%
+    {
+        text-shadow: -1px -1px 0 pink, 1px -1px 0 hotpink, -1px 1px 0 white, 1px 1px 0 white;
+    }
+}

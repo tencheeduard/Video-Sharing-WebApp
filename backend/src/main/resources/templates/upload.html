@@ -2,27 +2,77 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
+    <link rel="stylesheet" type="text/css" href="/static/upload/upload.css">
     <title>Title</title>
 </head>
 <body>
-    <form method="POST" action="/upload/file" enctype="multipart/form-data">
+    <div class="form_div">
+        <h1 class="form_label">Upload Video</h1>
 
-        <input type="file" name="file"/> <br>
-        <input type="text" name="title"/> <br>
-        <input type="text" name="description"/> <br>
-        <input type="text" name="tags"/> <br>
-        <input type="file" name="thumbnail"/> <br>
+        <form id="upload_form" method=POST action="/upload/file" enctype=multipart/form-data>
+            <table id="main_table">
+                <tr id="row1">
+                    <td>
+                        <label for="file">Video: </label>
+                    </td>
+                    <td>
+                        <input type="file" id="file" name="file"/>
+                    </td>
+                </tr>
+                <tr id="row2">
+                    <td>
+                        <label for="title">Title: </label>
+                    </td>
+                    <td>
+                        <input type="text" id="title" name="title" maxlength="30"/>
+                    </td>
+                </tr>
+                <tr id="row3">
+                    <td>
+                        <label for="description">Description: </label>
+                    </td>
+                    <td>
+                        <input type="text" id="description" name="description"></input>
+                    </td>
+                </tr>
+                <tr id="row4">
+                    <td>
+                        <label for="category">Category: </label>
+                    </td>
+                    <td>
+                        <select name="category" id="category">
+                            <option value="funny">Funny</option>
+                            <option value="gaming">Gaming</option>
+                            <option value="vlog">Vlog</option>
+                            <option value="educational">Educational</option>
+                            <option value="music">Music</option>
+                        </select>
+                    </td>
+                </tr>
+                <tr id="row5">
+                    <td>
+                        <label for="tags">Tags: </label>
+                    </td>
+                    <td>
+                        <input type="text" id="tags" name="tags"></input>
+                    </td>
+                </tr>
+                <tr id="row6">
+                    <td>
+                        <label for="thumbnail">Thumbnail: </label>
+                    </td>
+                    <td>
+                        <input type="file" id="thumbnail" name="thumbnail"/>
+                    </td>
+                </tr>
+            </table>
 
-        <p id="error_message" th:text="${error}">NULL</p>
-        <input type="submit" value="Submit" /> <br>
+            <br>
+            <br>
 
-    </form>
+            <button id="submit_button">Upload</button> <br>
 
-    <script>
-        let error = document.getElementById("error_message");
-        if(error.innerHTML === "NULL"){
-            error.remove();
-        }
-    </script>
+        </form>
+    </div>
 </body>
 </html>

@@ -1,52 +1,66 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
+    <link rel="stylesheet" type="text/css" href="/static/home/home.css">
 </head>
 <body>
-        <p th:text="'Logged in as: ' + ${username}"></p>
+    <div class="main">
+        <!--TEMPLATES-->
+        <template id="recommended_video_template">
+            <td class="recommended_video">
+                <div class="recommended_video_container">
+                    <table>
+                        <tr>
+                            <td class="videos_table_element">
+                                <a class="recommended_video_thumbnail_link" href="/video/placeholder">
+                                    <img class="recommended_video_thumbnail" src="/video/placeholder" alt="/video/placeholder" width="384" height="216"/>
+                                </a>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="videos_table_element td_title">
+                                <p class="recommended_video_title">Title</p>
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+            </td>
+        </template>
 
-        <label for="sort_select">Sort By</label>
 
-        <select id="sort_select" name="sort">
-            <option value="RECENT">Most Recent</option>
-            <option value="RECOMMENDED">Most Relevant</option>
-            <option value="POPULAR">Most Popular</option>
-        </select>
 
-        <a id="upload_link" href="/upload">Upload Video...</a>
 
-        <script th:inline="javascript">
-            let videos = /*[[${titles}]]*/ 'videos';
-            let ids = /*[[${ids}]]*/ 'ids';
+        <div class="table_container">
+            <div class="top-bar">
+                <div class="top_bar_elements">
+                    <div>
+                        <p id="logged_in_message">Not logged in.</p>
+                    </div>
+                    <div>
+                        <button id="upload_button">Upload</button>
+                    </div>
+                </div>
+            </div>
 
-            for(let i = 0; i < videos.length; i++)
-            {
-                const newP = document.createElement('a');
-                newP.href = "/watch/" + ids[i];
-                newP.appendChild(document.createTextNode(videos[i]));
-                document.body.insertBefore(newP,document.getElementById("upload_link"));
-                document.body.insertBefore(document.createElement('br'), newP);
-            }
 
-            document.body.insertBefore(document.createElement('br'), document.getElementById("upload_link"));
-            document.body.insertBefore(document.createElement('br'), document.getElementById("upload_link"));
-            document.body.insertBefore(document.createElement('br'), document.getElementById("upload_link"));
+            <div id="sort_selector_div">
+                <label id="sort_select_label" for="sort_select">Sort By</label>
 
-            const sort_select = document.getElementById("sort_select");
+                <select id="sort_select" name="sort">
+                    <option value="RECENT">Most Recent</option>
+                    <option value="LIKED">Most Liked</option>
+                    <option value="VIEWED">Most Viewed</option>
+                </select>
+            </div>
 
-            sort_select.onchange = function(){
-                const request = new XMLHttpRequest();
-                request.open("POST","/setFilterType/" + sort_select.options[sort_select.selectedIndex].value);
-                request.send();
-                request.onreadystatechange = function()
-                {
-                    if (request.readyState === XMLHttpRequest.DONE && request.status === 200) {
-                        location.reload();
-                    }
-                }
-            }
-        </script>
+
+            <table id="videos_table">
+            </table>
+        </div>
+
+        <script src="/static/home/home.js"></script>
+    </div>
 </body>
 </html>

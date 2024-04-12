@@ -11,6 +11,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.sql.Date;
+import java.sql.Timestamp;
 
 @Entity
 @NoArgsConstructor
@@ -34,8 +35,7 @@ public class Video {
     String tags;
 
     @Getter @Setter
-    @Temporal(TemporalType.DATE)
-    Date date;
+    Timestamp date;
 
     @Getter @Setter
     String category;

@@ -7,6 +7,8 @@ import com.eax.videoapp.services.StreamingService;
 import com.eax.videoapp.services.UploadService;
 import io.metaloom.video4j.VideoFile;
 import io.metaloom.video4j.Videos;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
 import net.coobird.thumbnailator.Thumbnails;
 import nu.pattern.OpenCV;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -46,24 +48,22 @@ public class UploadController {
 
 
     @PostMapping(value = "/upload/file")
-    public ModelAndView uploadVideo(@CookieValue(value="login", defaultValue = "NULL") String loginCookie,
-                              @RequestParam("file")MultipartFile file,
-                              String title, String description, String tags, String category,
-                              MultipartFile thumbnail) {
-
-        ModelAndView modelAndView = new ModelAndView("upload");
+    public void uploadVideo(@CookieValue(value="login", defaultValue = "NULL") String loginCookie,
+                            @RequestParam MultipartFile file,
+                            @RequestParam String title, @RequestParam String description, @RequestParam String tags, @RequestParam String category,
+                            @RequestParam MultipartFile thumbnail,
+                            HttpServletResponse response) {
 
         if(loginService.authorizeCookie(loginCookie) == null)
         {
-            modelAndView.setViewName("redirect:/login");
-            modelAndView.addObject("error", "You must log in to perform this action.");
-            return modelAndView;
+            response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
+            return;
         }
 
         if(file.isEmpty())
         {
-            modelAndView.addObject("error", "You must select a file.");
-            return modelAndView;
+            response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
+            return;
         }
 
         String videoId;
@@ -72,15 +72,18 @@ public class UploadController {
         }
         catch (IOException e)
         {
-            {
-                modelAndView.setViewName("redirect:/login");
-                modelAndView.addObject("error", e.getMessage());
-                return modelAndView;
-            }
+            response.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
+            return;
         }
 
-        modelAndView.setViewName("redirect:/watch/" + videoId);
-        return modelAndView;
+        response.setStatus(HttpServletResponse.SC_OK);
+        try {
+            response.sendRedirect("/watch/" + videoId);
+        }
+        catch(IOException e)
+        {
+            response.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
+        }
     }
 
 }

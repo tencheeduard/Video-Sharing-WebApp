@@ -6,11 +6,14 @@ import com.eax.videoapp.repositories.LoginCookieRepository;
 import com.eax.videoapp.repositories.UserRepository;
 import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServletResponse;
+import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.sql.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import static java.util.UUID.randomUUID;
 
@@ -68,6 +71,10 @@ public class LoginService {
         String uuid = randomUUID().toString();
         uuid = uuid.replace("-","");
 
+        List<User> users = userRepository.findByEmail(username);
+        if(!users.isEmpty())
+            username = users.getFirst().getUsername();
+
         Cookie loginCookie = new Cookie("login", uuid);
         loginCookie.setMaxAge(3600);
         loginCookie.setPath("/");
@@ -75,6 +82,24 @@ public class LoginService {
 
         loginCookieRepository.save(new LoginCookie(uuid, username));
         return loginCookie;
+    }
+
+    public Map<String, Object> getPublicUserData(String username)
+    {
+        List<User> users = userRepository.findByUsername(username);
+        if(!users.isEmpty())
+        {
+            User user = users.getFirst();
+            Map<String, Object> userData = new HashMap<>();
+            userData.put("username", user.getUsername());
+            userData.put("publicName", user.getPublicName());
+            userData.put("joinDate", user.getJoinDate());
+            userData.put("subscribers", user.getSubscribers());
+
+            return userData;
+        }
+
+        return null;
     }
 
 }

@@ -24,20 +24,7 @@ public class HomeController {
     @GetMapping(value="/")
     public ModelAndView home(@CookieValue(name="login",defaultValue = "None") String loginCookie, @CookieValue(name="searchType",defaultValue = "RECENT") String searchType)
     {
-        String username = "Anonymous";
-        if(!loginCookie.equals("None"))
-            username = loginService.authorizeCookie(loginCookie).getUsername();
-
-        List<Video> videos = videoRecommendationService.getVideosBySearchType(VideoRecommendationService.SEARCH_TYPE.valueOf(searchType));
-        ModelAndView modelAndView = new ModelAndView("home");
-
-        List<String> titles = videos.stream().map(Video::getTitle).toList();
-        List<String> ids = videos.stream().map(Video::getVideoId).toList();
-
-        modelAndView.addObject("titles", titles);
-        modelAndView.addObject("ids", ids);
-        modelAndView.addObject("username", username);
-        return modelAndView;
+        return new ModelAndView("home");
     }
 
     @PostMapping(value="/setFilterType/{searchType}")

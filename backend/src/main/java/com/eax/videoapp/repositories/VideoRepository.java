@@ -11,10 +11,10 @@ public interface VideoRepository extends CrudRepository<Video,String> {
     List<Video> findByVideoId(String videoId);
     List<Video> findByCategory(String category);
 
-    @Query("SELECT video FROM Video video ORDER BY video.date DESC")
-    List<Video> findFirst20OrderByDateDesc();
+    List<Video> findTop50ByOrderByDateDesc();
 
-    @Query("SELECT video FROM Video video ORDER BY video.likes DESC")
-    List<Video> findFirst20OrderByLikesDesc();
+    List<Video> findTop50ByOrderByViewsDesc();
+
+    List<Video> findTop50ByOrderByLikesDesc();
 
 }

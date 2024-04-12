@@ -23,15 +23,21 @@ public class StreamingController {
     VideoRepository videoRepository;
 
     @GetMapping(value="/video/{id}", produces = "video/mp4")
-    public Mono<Resource> stream(@PathVariable String id)
+    public Mono<Resource> stream(@PathVariable String id, @CookieValue(name="login",defaultValue = "None") String loginCookie)
     {
         try {
-            return streamingService.getVideo(id);
+            return streamingService.getVideo(id, loginCookie);
         }
         catch (Exception e)
         {
             return Mono.error(e);
         }
+    }
+
+    @GetMapping(value="/thumb/{id}", produces = "image/jpg")
+    public Mono<Resource> getThumbnail(@PathVariable String id)
+    {
+        return streamingService.getThumb(id);
     }
 
     @GetMapping(value="/watch/{id}")
@@ -65,6 +71,14 @@ public class StreamingController {
 
         if(exitCode == 1)
             response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
+        if(exitCode == 2)
+            response.setStatus(HttpServletResponse.SC_FORBIDDEN);
+    }
+
+    @GetMapping(value="/test")
+    public Video getVideo(@RequestParam(name="id") String id)
+    {
+        return videoRepository.findByVideoId(id).getFirst();
     }
 
 }

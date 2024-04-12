@@ -1,0 +1,13 @@
+body
+{
+    width:100%;
+    height:100%;
+    background-image: url("https://worldofprintables.com/wp-content/uploads/2023/07/Pink-and-White-Cat-Background.jpg");
+    background-size: 261px;
+    animation: moveIt 100s linear infinite;
+}
+
+@keyframes moveIt {
+    from {background-position: bottom left;}
+    to {background-position: top right;}
+}

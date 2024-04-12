@@ -18,6 +18,7 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.sql.Date;
+import java.sql.Timestamp;
 
 import static java.util.UUID.randomUUID;
 
@@ -56,7 +57,7 @@ public class UploadService {
             Files.write(thumbPath, thumbBytes);
         }
 
-        Video video = new Video(videoId, loginCookie, title, description, tags, new Date(System.currentTimeMillis()), category, 0, 0);
+        Video video = new Video(videoId, loginCookie, title, description, tags, new Timestamp(System.currentTimeMillis()), category, 0, 0);
         videoRepository.save(video);
 
         return videoId;
